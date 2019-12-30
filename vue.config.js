@@ -4,7 +4,7 @@ const appData = require('./mock/data.json')
 const {seller, goods, ratings} = appData
 
 function resolve(dir) {
-  return path.join(__dirname, dir)
+  return path.join(__dirname, dir) // vue.config.js 所在的目录
 }
 
 module.exports = {

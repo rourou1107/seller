@@ -1,36 +1,39 @@
 <template>
-  <div class="header">
-    <div class="content-wrapper">
-      <div class="avatar">
-        <img :src="sellerData.avatar" alt=""/>
-      </div>
-      <div class="content">
-        <div class="title">
-          <span class="brand"></span>
-          <span class="name">{{sellerData.name}}</span>
+  <div>
+    <div class="header">
+      <div class="content-wrapper">
+        <div class="avatar">
+          <img :src="sellerData.avatar" alt=""/>
         </div>
-        <div class="description">{{sellerData.description}} / {{sellerData.minPrice}}分钟送达</div>
-        <div class="support" v-if="sellerData.supports">
-          <support-icon :type="sellerData.supports[0].type" :size="1"></support-icon>
-          <span class="text">{{sellerData.supports[0].description}}</span>
+        <div class="content">
+          <div class="title">
+            <span class="brand"></span>
+            <span class="name">{{sellerData.name}}</span>
+          </div>
+          <div class="description">{{sellerData.description}} / {{sellerData.minPrice}}分钟送达</div>
+          <div class="support" v-if="sellerData.supports">
+            <support-icon :type="sellerData.supports[0].type" :size="1"></support-icon>
+            <span class="text">{{sellerData.supports[0].description}}</span>
+          </div>
+        </div>
+        <div class="support-count" v-if="sellerData.supports">
+          <div class="count">{{sellerData.supports.length}}个</div>
+          <i class="cubeic-arrow icon"></i>
         </div>
       </div>
-      <div class="support-count" v-if="sellerData.supports">
-        <div class="count">{{sellerData.supports.length}}个</div>
+      <div class="bulletin-wrapper">
+        <div class="bulletin-title"></div>
+        <div class="bulletin-text">{{sellerData.bulletin}}</div>
         <i class="cubeic-arrow icon"></i>
       </div>
-    </div>
-    <div class="bulletin-wrapper">
-      <div class="bulletin-title"></div>
-      <div class="bulletin-text">{{sellerData.bulletin}}</div>
-      <i class="cubeic-arrow icon"></i>
     </div>
   </div>
 </template>
 
 <script>
-  import SupportIcon from '../support-icon/support-icon.vue'
+  import SupportIcon from 'components/support-icon/support-icon.vue'
   export default {
+      name: 'v-header',
       props: {
           sellerData: {
               type: Object,
@@ -39,7 +42,16 @@
               }
           }
       },
-      components: { SupportIcon }
+      components: { SupportIcon },
+      methods: {
+          showDetail() {
+            this.headerDetailCom = this.headerDetailCom || this.$createHeaderDetail({
+                $props: {
+                    sellerData: 'sellerData'
+                }
+            })
+          }
+      }
   }
 </script>
 
@@ -95,7 +107,7 @@
         margin-bottom: 18px
         margin-right: 12px
         padding: 7px 8px
-        background-color: $color-background-w
+        background-color: $color-background-b
         font-size: $fontsize-small-s
         border-radius: 10px
         .count
@@ -103,7 +115,7 @@
     .bulletin-wrapper
       display: flex
       align-items: center
-      font-size: 10px
+      font-size: $fontsize-small-s
       padding: 8px 12px
       background-color: $color-background-sss
       .bulletin-title
