@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="header">
+    <div class="header" @click="showDetail">
       <div class="content-wrapper">
         <div class="avatar">
           <img :src="sellerData.avatar" alt=""/>
@@ -33,7 +33,6 @@
 <script>
   import SupportIcon from 'components/support-icon/support-icon.vue'
   export default {
-      name: 'v-header',
       props: {
           sellerData: {
               type: Object,
@@ -45,11 +44,13 @@
       components: { SupportIcon },
       methods: {
           showDetail() {
+              // header-detail 实例
             this.headerDetailCom = this.headerDetailCom || this.$createHeaderDetail({
                 $props: {
                     sellerData: 'sellerData'
                 }
             })
+            this.headerDetailCom.show()
           }
       }
   }

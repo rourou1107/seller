@@ -1,43 +1,43 @@
 <template>
   <div id="app">
     <Header :sellerData="sellerData"></Header>
+    <div class="tab-wrapper">
+      <Tab></Tab>
+    </div>
   </div>
 </template>
 
 <script>
-    import { getSeller, getGoods, getRatings } from 'api/index.js'
+    import { getSeller } from 'api/index.js'
     import Header from 'components/header/header.vue'
+    import Tab from 'components/tab/tab.vue'
 
     export default {
         name: 'app',
         data() {
             return {
-                sellerData: {},
-                goodsData: {},
-                ratingsrData: {}
+                sellerData: {}
             }
         },
-        components: { Header },
+        components: { Header, Tab },
         created() {
             this._getSeller()
-            this._getGoods()
-            this._getRatings()
         },
         methods: {
             _getSeller() {
                 getSeller().then((res) => {
                     this.sellerData = res
                 })
-            },
-            _getGoods() {
-                this.ratingsrData = getGoods()
-            },
-            _getRatings() {
-                this.ratingsrData = getRatings()
             }
         }
     }
 </script>
 
-<style lang="stylus">
+<style lang="stylus" scoped>
+  .tab-wrapper
+    position: fixed
+    top: 134px
+    bottom: 0
+    left: 0
+    right: 0
 </style>

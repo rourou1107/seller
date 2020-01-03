@@ -1,6 +1,6 @@
 <template>
   <transition name="fade">
-    <div class="header-detail" v-if="showFlag">
+    <div class="header-detail" v-if="visible">
       <div class="detail-main">
         <div class="name">{{sellerData.name}}</div>
         <star :size="48" :score="sellerData.score"></star>
@@ -32,9 +32,9 @@
   export default {
       name: 'header-detail',
       data() {
-        return {
-            showFlag: true
-        }
+          return {
+              visible: false
+          }
       },
       props: {
           sellerData: Object,
@@ -45,11 +45,11 @@
       components: { Star, SupportIcon },
       methods: {
           close() {
-              this.showFlag = false
+              this.visible = false
+          },
+          show() {
+              this.visible = true
           }
-      },
-      created() {
-          console.log(this.sellerData)
       }
   }
 </script>
@@ -64,6 +64,7 @@
     right: 0
     background-color: $color-background-s
     color: $color-white
+    opacity: 1
     .detail-main
       width: 80%
       margin: 64px auto 0
@@ -103,7 +104,8 @@
       text-align: center
       color: $color-background-w
   .fade-enter-active, .fade-leave-active
-    transition: opacity .5s
+    transition: all 1s
   .fade-enter, .fade-leave-to
     opacity: 0
+  /*fade-leave-to 元素过渡的结束状态 fade-enter 过渡生效时的状态*/
 </style>
