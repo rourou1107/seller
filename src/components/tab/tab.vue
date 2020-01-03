@@ -101,4 +101,6 @@
       line-height: 26px
     .slide-wrapper
       flex: 1
+    & >>> .cube-slide-item
+      position: relative
 </style>
